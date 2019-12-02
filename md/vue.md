@@ -81,3 +81,6 @@
 
 ## computed property
 
+1. **computed properties are cached based on their reactive dependencies**
+2.  **And the best part is that we’ve created this dependency relationship  declaratively: the computed getter function has no side effects, which  makes it easier to test and understand.**
+3. 计算属性可以缓存，声明式的依赖，易于测试以及理解。

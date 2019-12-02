@@ -4,8 +4,97 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.13.1/lodash.min.js"></script>
 </head>
 <body>
-
+<div id="example">
+    <p>Original message:{{message}}</p>
+    <p>Computed reversed message:{{reversedMessage}}</p>
+    <p>Reversed message:{{reverseMessage()}}</p>
+    <p>Now: {{now}}</p>
+</div>
+<div id="demo">{{fullName}}</div>
 </body>
+<script>
+    const vm = new Vue({
+        el: '#example',
+        data: {
+            message: 'hello',
+        },
+        methods: {
+            reverseMessage() {
+                return this.message.split('').reverse().join('');
+            },
+        },
+        computed: {
+            reversedMessage() {
+                return this.message.split('').reverse().join('');
+            },
+            now() {
+                return new Date().toLocaleString();
+            }
+        }
+    });
+    const demo = new Vue({
+        el: '#demo',
+        data: {
+            firstName: 'Foo',
+            lastName: 'Bar',
+            // fullName: 'Foo Bar'
+        },
+        computed: {
+            // fullName() {
+            //     return this.firstName + ' ' + this.lastName;
+            // }
+            fullName: {
+                get() {
+                    return this.firstName + ' ' + this.lastName;
+                },
+                set(val) {
+                    const names = val.split(' ', 2);
+                    this.firstName = names[0];
+                    this.lastName = names[names.length - 1];
+                }
+            }
+        },
+        // watch: {
+        //     firstName(val) {
+        //         this.fullName = val + ' ' + this.lastName;
+        //     },
+        //     lastName(val) {
+        //         this.fullName = this.firstName + ' ' + val;
+        //     }
+        // }
+    });
+    const watchExampleVm = new Vue({
+        el: '#watch-example',
+        data: {
+            question: '',
+            answer: 'I cannot give you an answer until you ask a question!',
+        },
+        watch: {
+            question(newQuestion, oldQuestion) {
+                this.answer = 'Waiting for you to stop typing...';
+                this.debouncedGetAnswer();
+            },
+        },
+        created() {
+            this.debouncedGetAnswer = _.debounce(this.getAnswer, 500);
+        },
+        methods: {
+            getAnswer() {
+                if (!this.question.includes('?')) {
+                    this.answer = 'Questions usually contain a question mark.';
+                    return;
+                }
+                this.answer = 'Thinking...';
+                const vm = this;
+                axios.get('https://yesno.wtf/api')
+                    .then(res => vm.answer = _.capitalize(res.data.answer))
+                    .catch(err => vm.answer = 'Error! Cloud not reach the API.' + err);
+            },
+        },
+    });
+</script>
 </html>

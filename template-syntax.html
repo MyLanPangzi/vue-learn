@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <p>{{msg}}</p>
+    <p v-once>This will never change:{{msg}}</p>
+    <p>Using mustaches: {{rawHtml}}</p>
+    <p>Using v-html directive:<span v-html="rawHtml"></span></p>
+    <div :id="dynamicId">Hello</div>
+    <button :disabled="disabled">Button</button>
+    <p>
+        {{num+1}} <br>
+        {{ ok ? 'YES' : 'NO' }}<br>
+        {{ msg.split('').reverse().join('') }}<br>
+        <div :id="'list'+num"></div>
+    </p>
+    <p v-if="seen">Now you see me</p>
+    <a :href="url">Baidu</a>
+    <p v-bind:[prop]="title">Dynamic Argument</p>
+</div>
+</body>
+<script>
+    const app = new Vue({
+        el: '#app',
+        data: {
+            msg: 'Hell Vue',
+            rawHtml: '<span style="color:red;">Hello</span>',
+            dynamicId: 'Hello',
+            disabled: true,
+            num: 0,
+            ok: false,
+            seen: true,
+            title: 'title',
+            prop: 'title',
+            url: 'www.baidu.com',
+
+        }
+    })
+</script>
+</html>

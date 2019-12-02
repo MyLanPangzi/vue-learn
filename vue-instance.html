@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <p>{{foo}}</p>
+    <!--        this will no longer update `foo`!-->
+    <button @click="foo = 'baz'">Change it</button>
+</div>
+<div id="example">
+
+</div>
+</body>
+<script>
+    const obj = {
+        foo: 'bar',
+    };
+    Object.freeze(obj);
+    new Vue({
+        el: '#app',
+        data: obj,
+    });
+    const data = {a: 1};
+    const vm = new Vue({
+        el: '#example',
+        data
+    });
+    console.log(vm.$data === data);
+    console.log(vm.$el === document.querySelector('#example'));
+    vm.$watch('a', (newVal, oldVal) => {
+        console.log(newVal, oldVal);
+    });
+    new Vue({
+        data: {
+            a: 1,
+        },
+        created(){
+            console.log(`a is ${this.a}`);
+        }
+    });
+</script>
+</html>

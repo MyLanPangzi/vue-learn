@@ -15,11 +15,11 @@
 ## 自定义组件
 * Vue.component
 
-# Vue Instance
-## Create
+# Vue Instance 实例对象
+## Create 创建
 * new Vue({})
-## Data and methods
-* data properties is reactive
+## Data and methods 数据和方法
+* data properties is reactive 数据属性是响应式的
 
     * data 
 
@@ -38,11 +38,11 @@
         })
         ```
 
-* start $ property is vm property
+* start $ property is vm property $开头的属性是实例自带的属性
     * $el
     * $data
     * $watch
-## Lifecycle hooks 
+## Lifecycle hooks 生命周期钩子
 * beforeCreate
 * created
 * beforeMount
@@ -53,7 +53,7 @@
 * destroyed
 ![](lifecycle.png)
 
-# Template Syntax
+# Template Syntax 模板语法
 ## Interpolation 插值
 
 * **Text** {{}} 文本插值
@@ -77,10 +77,10 @@
 
 * **v-on** @
 
-# Computed Properties and Watchers
+# Computed Properties and Watchers 计算属性以及侦听器
 
-## computed property
+## computed property 计算属性
 
-1. **computed properties are cached based on their reactive dependencies**
+1. **computed properties are cached based on their reactive dependencies** 计算属性能被缓存
 2.  **And the best part is that we’ve created this dependency relationship  declaratively: the computed getter function has no side effects, which  makes it easier to test and understand.**
 3. 计算属性可以缓存，声明式的依赖，易于测试以及理解。
